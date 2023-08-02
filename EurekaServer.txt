@@ -1,0 +1,24 @@
+Eureka Server — это discovery сервис — приложение, которое содержит информацию о всех клиентских сервисах. 
+		Если попытаться объяснить очень простыми словами, то это сервер имен или реестр сервисов. 
+		Его обязанность давать имена каждому микросервису. Он регистрирует микросервисы и отдает 
+		их ip другим микросервисам. EurekaServer - одно из разновидностей DiscoberyServer.
+	
+	       @EnableDiscoveryServer
+	       (@EnableEurekaServer)
+	           EurekaServer--------->DataBase
+	           /          \
+		  /            \
+		 /              \
+     @EnableDiscoveryClient    @EnableDiscoveryClient
+      (@EnableEurekeClient)    (@EnableEurekeClient)	 
+	 ClientServer_A<------->ClientServer_B
+
+EurekaSever помечается аннотацией @EnableEurekaServer, или если Spring - @EnableDiscoveryServer
+EurekaClient помечается аннотацией @EnableEurekaClient, или если Spring - @EnableDiscoveryServer
+
+Как работает:
+1. ClientServer регистрируется в EurekaServer
+2. При необходимости обращения из ClientServer_A в ClientServer_B 
+	делается запрос в EurekaServer и тот ему предоставляет 
+	url или ip и порт ClientServer_B.
+3. По полученным данным, происходит обращение из ClientServer_A в ClietnServer_B.  
